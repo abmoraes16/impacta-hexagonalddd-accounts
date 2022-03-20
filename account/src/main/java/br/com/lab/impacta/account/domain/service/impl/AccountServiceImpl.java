@@ -11,11 +11,12 @@ import org.springframework.stereotype.Service;
 
 import java.util.Optional;
 
-//Essa implementação está para Domain Layer Service na arquiteura hexagonal
+//Essa implementação está para Domain Layer Service na arquitetura hexagonal
+//quando usa @Service, a app sabe que tem uma instancia de accountserviceimpl = injecao de dependencia
 @Service
 public class AccountServiceImpl implements AccountService {
 
-    @Autowired
+    @Autowired //busca a injecao de dependencia
     private AccountRepository accountRepository;
 
     @Value("${lab.account.exceptions.account-dont-exists-message}")
@@ -32,7 +33,7 @@ public class AccountServiceImpl implements AccountService {
 
     @Override
     public Account find(Long accountId) {
-        Optional<Account> account = accountRepository.findById(accountId);
+        Optional<Account> account = accountRepository.findById(accountId); //Optional = porque account é opcional, pode vir vazio
 
         if (account.isEmpty())
             throw new AccountNotFoundException(
@@ -51,7 +52,8 @@ public class AccountServiceImpl implements AccountService {
         if (!debited)
             throw new AccountWithoutBalanceException(
                     messageExceptionAccountWithoutBalance,
-                    descriptionExceptionAccountWithoutBalance);
+                    descriptionExceptionAccountWithoutBalance
+            );
 
         accountRepository.save(account);
     }

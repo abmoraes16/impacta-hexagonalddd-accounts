@@ -8,6 +8,7 @@ import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
 
+//@Data = Nâo precisa gerar os gets e sets
 @Data
 @Entity
 public class Person {
