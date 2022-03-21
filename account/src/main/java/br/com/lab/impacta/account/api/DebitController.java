@@ -16,9 +16,8 @@ public class DebitController {
 
     @PostMapping("/{accountId}/debit")
     public ResponseEntity<DebitAccountResponse> debit(
-            @PathVariable long accountId,
+            @PathVariable Long accountId,
             @RequestBody DebitAccountRequest debitAccountRequest){
-
         DebitAccountResponse debitAccountResponse = accountApplication.debit(accountId, debitAccountRequest);
 
         return ResponseEntity.ok(debitAccountResponse);

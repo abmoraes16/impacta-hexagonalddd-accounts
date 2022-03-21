@@ -17,37 +17,27 @@ public class ControllerExceptionHandler {
 
     @ExceptionHandler(AccountNotFoundException.class)
     public ResponseEntity<ErrorMessageResponse> accountNotFoundException(AccountNotFoundException exception){
-        ErrorMessageResponse errorMessageResponse = new ErrorMessageResponse(
-                HttpStatus.NOT_FOUND.value(),
-                new Date(),
-                exception.getMessage(),
-                exception.getDescription()
-        );
-
-        return new ResponseEntity<>(errorMessageResponse, HttpStatus.NOT_FOUND);
+        return getErrorMessageResponse(HttpStatus.NOT_FOUND, exception.getMessage(), exception.getDescription());
     }
 
     @ExceptionHandler(AccountWithoutBalanceException.class)
     public ResponseEntity<ErrorMessageResponse> accountWithoutBalanceException(AccountWithoutBalanceException exception){
-        ErrorMessageResponse errorMessageResponse = new ErrorMessageResponse(
-                HttpStatus.BAD_REQUEST.value(),
-                new Date(),
-                exception.getMessage(),
-                exception.getDescription()
-        );
-
-        return new ResponseEntity<>(errorMessageResponse, HttpStatus.BAD_REQUEST);
+        return getErrorMessageResponse(HttpStatus.BAD_REQUEST, exception.getMessage(), exception.getDescription());
     }
 
     @ExceptionHandler(RuntimeException.class)
     public ResponseEntity<ErrorMessageResponse> errorGeneral(RuntimeException exception){
+        return getErrorMessageResponse(HttpStatus.INTERNAL_SERVER_ERROR, exception.getMessage(), MESSAGE_ERROR_DEFAULT);
+    }
+
+    private ResponseEntity<ErrorMessageResponse> getErrorMessageResponse(HttpStatus httpStatus, String message, String description) {
         ErrorMessageResponse errorMessageResponse = new ErrorMessageResponse(
-                HttpStatus.INTERNAL_SERVER_ERROR.value(),
+                httpStatus.value(),
                 new Date(),
-                exception.getMessage(),
-                MESSAGE_ERROR_DEFAULT
+                message,
+                description
         );
 
-        return new ResponseEntity<>(errorMessageResponse, HttpStatus.INTERNAL_SERVER_ERROR);
+        return new ResponseEntity<>(errorMessageResponse, httpStatus);
     }
 }

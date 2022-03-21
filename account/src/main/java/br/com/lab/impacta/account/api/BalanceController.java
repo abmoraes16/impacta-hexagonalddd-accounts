@@ -19,7 +19,6 @@ public class BalanceController {
     @GetMapping("/{accountId}/balance")
     public ResponseEntity<AccountBalanceResponse> balance(
             @PathVariable long accountId){
-
         AccountBalanceResponse accountBalanceResponse = accountApplication.getBalance(accountId);
 
         return ResponseEntity.ok(accountBalanceResponse);
