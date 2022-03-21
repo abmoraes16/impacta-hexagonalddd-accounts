@@ -15,7 +15,7 @@ public class InvestmentController {
     @Autowired
     private InvestmentApplication investmentApplication;
 
-    @PostMapping("/{accountId}/invest")
+    @PostMapping("/{accountId}/investment")
     private ResponseEntity<InvestmentResponse> invest(
             @PathVariable Long accountId,
             @RequestBody InvestmentRequest investmentRequest){
