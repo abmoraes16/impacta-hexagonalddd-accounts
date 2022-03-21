@@ -17,7 +17,7 @@ Para executar as aplicações, no diretório de cada uma executar o seguinte com
 
 mvn clean spring-boot:run
 
-A aplicação de Accounts esta configurada na porta 8381, enquanto a Investment está na 8382. 
+A aplicação de Account esta configurada pra subir na porta 8381, enquanto a Investment está na 8382. 
 
 
 ### Endpoints
